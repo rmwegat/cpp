@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwegat <rwegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 14:45:47 by rwegat            #+#    #+#             */
-/*   Updated: 2025/03/25 15:07:47 by rwegat           ###   ########.fr       */
+/*   Created: 2025/03/25 18:29:39 by rwegat            #+#    #+#             */
+/*   Updated: 2025/03/25 18:29:56 by rwegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+#ifndef WEAPON_HPP
+#define WEAPON_HPP
 
 #include <string>
-#include <iomanip>
-#include <cstdlib>
-#include <cctype>
-#include "Contact.hpp"
 
-class PhoneBook{
+class Weapon {
 	private:
-    int		_index;
-    bool	_is_full;
-    Contact	_contacts[8];
-
+		std::string	type;
 	public:
-		PhoneBook(void);
-		~PhoneBook(void);
+		Weapon(std::string type);
 
-		void	add_contact(const std::string data[5]);
-		void	display_phonebook(void)const;
-		int		get_size(void)const;
-		void	display_contact(int _index)const;
+		const std::string&	getType(void) const;
+		void 				setType(std::string type);
 };
 
 #endif

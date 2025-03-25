@@ -6,16 +6,16 @@
 #    By: rwegat <rwegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/26 13:03:05 by rwegat            #+#    #+#              #
-#    Updated: 2025/03/25 15:48:48 by rwegat           ###   ########.fr        #
+#    Updated: 2025/03/25 22:34:34 by rwegat           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = bank
+NAME = harl
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 CPP = c++
 
-SRCS =	Account.cpp\
-		tests.cpp\
+SRCS =	main.cpp\
+		Harl.cpp\
 
 OBJS = $(SRCS:.cpp=.o)
 

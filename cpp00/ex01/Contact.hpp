@@ -1,42 +1,35 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   contact.hpp                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rwegat <rwegat@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 14:48:45 by rwegat            #+#    #+#             */
-/*   Updated: 2025/03/17 01:31:16 by rwegat           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CONTACT_HPP
 #define CONTACT_HPP
 
 #include <iostream>
-#include <iomanip>
 #include <string>
-#include <cstdlib>
 
 class Contact
 {
     private:
-        static std::string	_fields_name[5];
-        std::string			_informations[11];
+        std::string firstName;
+        std::string lastName;
+        std::string nickname;
+        std::string phoneNumber;
+        std::string darkestSecret;
 
-        enum Field {
-            FirstName = 0,
-            LastName,
-            NickName,
-            PhoneNumber,
-            DarkestSecret
-        };
     public:
-		Contact(void);
-		~Contact(void);
+        Contact(void);
+        ~Contact(void);
 
-		bool	set_entry();
-		void	get_entry(int i);
+        // Getters
+        std::string getFirstName(void) const;
+        std::string getLastName(void) const;
+        std::string getNickname(void) const;
+        std::string getPhoneNumber(void) const;
+        std::string getDarkestSecret(void) const;
+
+        // Setters
+        void setFirstName(const std::string &firstName);
+        void setLastName(const std::string &lastName);
+        void setNickname(const std::string &nickname);
+        void setPhoneNumber(const std::string &phoneNumber);
+        void setDarkestSecret(const std::string &darkestSecret);
 };
 
 #endif

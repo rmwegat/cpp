@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwegat <rwegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 14:45:47 by rwegat            #+#    #+#             */
-/*   Updated: 2025/03/25 15:07:47 by rwegat           ###   ########.fr       */
+/*   Created: 2025/03/25 22:25:30 by rwegat            #+#    #+#             */
+/*   Updated: 2025/03/25 22:34:11 by rwegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+#ifndef HARL_HPP
+# define HARL_HPP
 
+#include <iostream>
 #include <string>
-#include <iomanip>
 #include <cstdlib>
-#include <cctype>
-#include "Contact.hpp"
 
-class PhoneBook{
+class Harl
+{
 	private:
-    int		_index;
-    bool	_is_full;
-    Contact	_contacts[8];
+		void	debug(void);
+		void	info(void);
+		void	warning(void);
+		void	error(void);
 
 	public:
-		PhoneBook(void);
-		~PhoneBook(void);
-
-		void	add_contact(const std::string data[5]);
-		void	display_phonebook(void)const;
-		int		get_size(void)const;
-		void	display_contact(int _index)const;
+		Harl();
+		~Harl();
+		void	complain(std::string level);
 };
 
 #endif

@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwegat <rwegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 14:45:47 by rwegat            #+#    #+#             */
-/*   Updated: 2025/03/25 15:07:47 by rwegat           ###   ########.fr       */
+/*   Created: 2025/03/25 16:14:43 by rwegat            #+#    #+#             */
+/*   Updated: 2025/03/25 16:17:26 by rwegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+#ifndef ZOMBIE_HPP
+#define ZOMBIE_HPP
 
+#include <iostream>
 #include <string>
-#include <iomanip>
-#include <cstdlib>
-#include <cctype>
-#include "Contact.hpp"
 
-class PhoneBook{
-	private:
-    int		_index;
-    bool	_is_full;
-    Contact	_contacts[8];
+class Zombie {
+private:
+    std::string name;
 
-	public:
-		PhoneBook(void);
-		~PhoneBook(void);
+public:
+    Zombie(std::string name);
+    ~Zombie();
 
-		void	add_contact(const std::string data[5]);
-		void	display_phonebook(void)const;
-		int		get_size(void)const;
-		void	display_contact(int _index)const;
+    void announce() const;
 };
 
 #endif
