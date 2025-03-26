@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwegat <rwegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 09:46:25 by rwegat            #+#    #+#             */
-/*   Updated: 2025/03/26 10:01:45 by rwegat           ###   ########.fr       */
+/*   Created: 2025/03/26 11:02:46 by rwegat            #+#    #+#             */
+/*   Updated: 2025/03/26 14:19:24 by rwegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Harl.hpp"
+#ifndef FIXED_HPP
+# define FIXED_HPP
 
-int main(int argc, char **argv)
+#include <iostream>
+
+class Fixed
 {
-	Harl harl;
-	switch (argc)
-	{
-		case 1:
-			std::cout << "[ Glad he is quiet... ]" << std::endl;
-			break;
-		case 2:
-			harl.complain(argv[1]);
-			break;
-		default:
-			std::cout << "[ Probably nothing important... ]" << std::endl;
-			break;
-	}
-	return (0);
-}
+	private:
+		int					_value;
+		static const int	_fractionalBits = 8;
+	public:
+		Fixed(void);
+		Fixed(const Fixed& other);
+		Fixed&	operator=( const Fixed& other );
+		int 	getRawBits( void ) const;
+		void	setRawBits( const int raw );
+};
+
+#endif

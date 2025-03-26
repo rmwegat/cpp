@@ -5,27 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwegat <rwegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 09:46:25 by rwegat            #+#    #+#             */
-/*   Updated: 2025/03/26 10:01:45 by rwegat           ###   ########.fr       */
+/*   Created: 2025/03/26 16:50:13 by rwegat            #+#    #+#             */
+/*   Updated: 2025/03/26 16:52:26 by rwegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Harl.hpp"
+#include "ClapTrap.hpp"
 
-int main(int argc, char **argv)
+int main()
 {
-	Harl harl;
-	switch (argc)
-	{
-		case 1:
-			std::cout << "[ Glad he is quiet... ]" << std::endl;
-			break;
-		case 2:
-			harl.complain(argv[1]);
-			break;
-		default:
-			std::cout << "[ Probably nothing important... ]" << std::endl;
-			break;
-	}
-	return (0);
+	ClapTrap claptrap("Claptrap");
+
+	claptrap.attack("Siren");
+	claptrap.takeDamage(5);
+	claptrap.beRepaired(10);
+	claptrap.takeDamage(10);
+	std::cout << "Fight is over" << std::endl;
+	return 0;
 }

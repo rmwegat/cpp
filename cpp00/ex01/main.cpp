@@ -6,7 +6,7 @@
 /*   By: rwegat <rwegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 14:50:33 by rwegat            #+#    #+#             */
-/*   Updated: 2025/03/25 19:33:49 by rwegat           ###   ########.fr       */
+/*   Updated: 2025/03/26 10:13:58 by rwegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <string>
 #include <limits>
 
-// Helper function to validate phone numbers
+
 bool is_valid_number(const std::string &number)
 {
     for (std::string::const_iterator it = number.begin(); it != number.end(); ++it)
@@ -28,7 +28,7 @@ bool is_valid_number(const std::string &number)
     return true;
 }
 
-// Function to handle adding a contact
+
 void handle_add(PhoneBook &phonebook)
 {
     std::string fields[] = {"First Name", "Last Name", "Nickname", "Phone Number", "Darkest Secret"};
@@ -48,7 +48,7 @@ void handle_add(PhoneBook &phonebook)
     std::cout << "Saved to Contacts✅" << std::endl;
 }
 
-// Function to handle searching for a contact
+
 void handle_search(PhoneBook &phonebook)
 {
     int index;
@@ -73,7 +73,7 @@ int main()
     PhoneBook phonebook;
     std::string input;
 
-    while (std::cin) // Keep the loop running as long as std::cin is valid
+    while (std::cin)
     {
         std::cout << "PhoneBook> ";
         std::getline(std::cin, input);
@@ -83,7 +83,7 @@ int main()
             handle_search(phonebook);
         else if (input == "EXIT")
             break;
-        else if (!std::cin.eof()) // Handle invalid commands unless EOF is reached
+        else if (!std::cin.eof())
             std::cout << "Invalid command. Valid Commands are 'ADD' 'SEARCH' 'EXIT'\n" << std::endl;
     }
     return 0;

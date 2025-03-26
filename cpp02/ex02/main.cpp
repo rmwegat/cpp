@@ -5,27 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwegat <rwegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 09:46:25 by rwegat            #+#    #+#             */
-/*   Updated: 2025/03/26 10:01:45 by rwegat           ###   ########.fr       */
+/*   Created: 2025/03/26 15:19:46 by rwegat            #+#    #+#             */
+/*   Updated: 2025/03/26 15:20:27 by rwegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Harl.hpp"
+#include "Fixed.hpp"
 
-int main(int argc, char **argv)
+int main( void )
 {
-	Harl harl;
-	switch (argc)
-	{
-		case 1:
-			std::cout << "[ Glad he is quiet... ]" << std::endl;
-			break;
-		case 2:
-			harl.complain(argv[1]);
-			break;
-		default:
-			std::cout << "[ Probably nothing important... ]" << std::endl;
-			break;
-	}
-	return (0);
+	Fixed a;
+	Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
+
+	std::cout << a << std::endl;
+	std::cout << ++a << std::endl;
+	std::cout << a << std::endl;
+	std::cout << a++ << std::endl;
+	std::cout << a << std::endl;
+
+	std::cout << b << std::endl;
+
+	std::cout << Fixed::max( a, b ) << std::endl;
+
+	return 0;
 }
