@@ -1,16 +1,17 @@
 NAME = convert
 
-SRCS = main.cpp ScalarConverter.cpp
+SRCS = main.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror
+RM = rm -f
 
 all: $(NAME)
 
 .cpp.o:
-	$(CC) $(CFLAGS) -c $< -o $(<:.cpp=.o)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) -o $(NAME)

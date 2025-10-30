@@ -1,19 +1,19 @@
-NAME = convert
+NAME = array
 
-SRCS = main.cpp ScalarConverter.cpp
+SRCS = main.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
-CC = c++
-CFLAGS = -Wall -Wextra -Werror
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
 .cpp.o:
-	$(CC) $(CFLAGS) -c $< -o $(<:.cpp=.o)
+	$(CXX) $(CXXFLAGS) -c $< -o $(<:.cpp=.o)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(CFLAGS) -o $(NAME)
+	$(CXX) $(OBJS) $(CXXFLAGS) -o $(NAME)
 
 clean:
 	@$(RM) $(OBJS)

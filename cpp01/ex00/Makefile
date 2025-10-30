@@ -1,5 +1,5 @@
 NAME = braiiiiiiinnnzzzz
-CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
+CPP_FLAGS = -Wall -Wextra -Werror
 CPP = c++
 
 SRCS =	randomChump.cpp\
