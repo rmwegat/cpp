@@ -3,15 +3,26 @@
 
 #include <algorithm>
 #include <iterator>
-#include <exception>
+#include <stdexcept>
 
+// Function template that finds the first occurrence of an integer in a container
 template <typename T>
-class EasyFind {
-private:
-public:
-    EasyFind() = default;
-    ~EasyFind() = default;
+typename T::iterator easyfind(T& container, int value) {
+    typename T::iterator it = std::find(container.begin(), container.end(), value);
+    if (it == container.end()) {
+        throw std::runtime_error("Value not found in container");
+    }
+    return it;
+}
 
-};
+// Const version for const containers
+template <typename T>
+typename T::const_iterator easyfind(const T& container, int value) {
+    typename T::const_iterator it = std::find(container.begin(), container.end(), value);
+    if (it == container.end()) {
+        throw std::runtime_error("Value not found in container");
+    }
+    return it;
+}
 
 #endif
