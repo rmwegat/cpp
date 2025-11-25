@@ -11,11 +11,9 @@ private:
     unsigned int _size;
 
 public:
-    // Default constructor: Creates an empty array
     Array() : _elements(NULL), _size(0) {
     }
     
-    // Constructor with size parameter: Creates array of n elements initialized by default
     Array(unsigned int n) : _elements(NULL), _size(n) {
         if (n > 0) {
             _elements = new T[n]();  // () ensures default initialization
@@ -32,9 +30,8 @@ public:
         }
     }
     
-    // Assignment operator: Deep copy with self-assignment protection
     Array& operator=(const Array& other) {
-        if (this != &other) {  // Self-assignment protection
+        if (this != &other) {
             // Clean up current resources
             delete[] _elements;
             
@@ -52,7 +49,6 @@ public:
         return *this;
     }
     
-    // Destructor
     ~Array() {
         delete[] _elements;
     }

@@ -2,15 +2,12 @@
 #include <algorithm>
 #include <cstdlib>
 
-// Constructor
 BitcoinExchange::BitcoinExchange() {
 }
 
-// Copy constructor
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) : _exchangeRates(other._exchangeRates) {
 }
 
-// Assignment operator
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
     if (this != &other) {
         _exchangeRates = other._exchangeRates;
@@ -18,7 +15,6 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
     return *this;
 }
 
-// Destructor
 BitcoinExchange::~BitcoinExchange() {
 }
 
@@ -30,50 +26,41 @@ void BitcoinExchange::trimString(std::string& str) const {
     str.erase(std::find_if(str.rbegin(), str.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), str.end());
 }
 
-// Validate date format (YYYY-MM-DD)
 bool BitcoinExchange::isValidDate(const std::string& date) const {
     if (date.length() != 10) return false;
     if (date[4] != '-' || date[7] != '-') return false;
     
-    // Check if all other characters are digits
     for (size_t i = 0; i < date.length(); ++i) {
         if (i == 4 || i == 7) continue;
         if (!std::isdigit(date[i])) return false;
     }
     
-    // Extract year, month, day
     int year = std::atoi(date.substr(0, 4).c_str());
     int month = std::atoi(date.substr(5, 2).c_str());
     int day = std::atoi(date.substr(8, 2).c_str());
     
-    // Basic validation
     if (year < 2009 || year > 2025) return false;
     if (month < 1 || month > 12) return false;
     if (day < 1 || day > 31) return false;
     
-    // Simple day validation (not perfect but sufficient)
     if (month == 2 && day > 29) return false;
     if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) return false;
     
     return true;
 }
 
-// Validate value (0 to 1000)
 bool BitcoinExchange::isValidValue(float value) const {
     return value >= 0 && value <= 1000;
 }
 
-// Parse value from string
 float BitcoinExchange::parseValue(const std::string& valueStr) const {
     std::string trimmed = valueStr;
     trimString(trimmed);
     
-    // Check for empty string
     if (trimmed.empty()) {
         throw std::invalid_argument("empty value");
     }
     
-    // Check for valid number format
     char* endptr;
     float value = std::strtof(trimmed.c_str(), &endptr);
     
@@ -84,9 +71,7 @@ float BitcoinExchange::parseValue(const std::string& valueStr) const {
     return value;
 }
 
-// Find closest date (lower or equal)
 std::string BitcoinExchange::findClosestDate(const std::string& date) const {
-    // Find the largest date that is <= input date
     std::map<std::string, float>::const_iterator it = _exchangeRates.upper_bound(date);
     
     if (it == _exchangeRates.begin()) {
@@ -142,20 +127,17 @@ void BitcoinExchange::loadDatabase(const std::string& filename) {
     }
 }
 
-// Get exchange rate for specific date
 float BitcoinExchange::getExchangeRate(const std::string& date) const {
     std::map<std::string, float>::const_iterator it = _exchangeRates.find(date);
     if (it != _exchangeRates.end()) {
         return it->second;
     }
     
-    // Find closest lower date
     std::string closestDate = findClosestDate(date);
     it = _exchangeRates.find(closestDate);
     return it->second;
 }
 
-// Process input file
 void BitcoinExchange::processInput(const std::string& filename) const {
     std::ifstream file(filename.c_str());
     if (!file.is_open()) {

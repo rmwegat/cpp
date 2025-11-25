@@ -1,6 +1,5 @@
 #include "ShrubberyCreationForm.hpp"
 
-// Orthodox Canonical Form
 ShrubberyCreationForm::ShrubberyCreationForm() 
     : AForm("Shrubbery Creation", GRADE_TO_SIGN, GRADE_TO_EXECUTE), target("default") {
 }
@@ -24,7 +23,6 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 ShrubberyCreationForm::~ShrubberyCreationForm() {
 }
 
-// Getter
 const std::string& ShrubberyCreationForm::getTarget() const {
     return target;
 }

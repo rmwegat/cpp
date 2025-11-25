@@ -1,7 +1,6 @@
 #include "Form.hpp"
 #include "Bureaucrat.hpp"
 
-// Exception implementations
 const char* Form::GradeTooHighException::what() const noexcept {
     return "Form grade is too high (minimum is 1)";
 }
@@ -10,7 +9,6 @@ const char* Form::GradeTooLowException::what() const noexcept {
     return "Form grade is too low (maximum is 150)";
 }
 
-// Private helper function
 void Form::validateGrade(int grade) const {
     if (grade < HIGHEST_GRADE) {
         throw GradeTooHighException();
@@ -20,7 +18,6 @@ void Form::validateGrade(int grade) const {
     }
 }
 
-// Orthodox Canonical Form
 Form::Form() : name("default"), is_signed(false), grade_to_sign(LOWEST_GRADE), grade_to_execute(LOWEST_GRADE) {
 }
 
@@ -36,7 +33,6 @@ Form::Form(const Form& other)
 
 Form& Form::operator=(const Form& other) {
     if (this != &other) {
-        // Note: name, grade_to_sign, and grade_to_execute are const, so they can't be reassigned
         // Only is_signed can be copied
         is_signed = other.is_signed;
     }
@@ -46,7 +42,6 @@ Form& Form::operator=(const Form& other) {
 Form::~Form() {
 }
 
-// Getters
 const std::string& Form::getName() const {
     return name;
 }
@@ -63,7 +58,6 @@ int Form::getGradeToExecute() const {
     return grade_to_execute;
 }
 
-// Member functions
 void Form::beSigned(const Bureaucrat& bureaucrat) {
     if (bureaucrat.getGrade() > grade_to_sign) {
         throw GradeTooLowException();
@@ -71,7 +65,6 @@ void Form::beSigned(const Bureaucrat& bureaucrat) {
     is_signed = true;
 }
 
-// Overload insertion operator
 std::ostream& operator<<(std::ostream& os, const Form& form) {
     os << "Form: " << form.getName() 
        << ", signed: " << (form.isSigned() ? "yes" : "no")

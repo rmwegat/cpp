@@ -8,7 +8,6 @@ const Intern::FormInfo Intern::formTypes[3] = {
     {"presidential pardon", &Intern::createPresidentialForm}
 };
 
-// Orthodox Canonical Form
 Intern::Intern() {
 }
 
@@ -24,7 +23,6 @@ Intern& Intern::operator=(const Intern& other) {
 Intern::~Intern() {
 }
 
-// Form creation methods
 AForm* Intern::createShrubberyForm(const std::string& target) const {
     return new ShrubberyCreationForm(target);
 }
@@ -37,7 +35,6 @@ AForm* Intern::createPresidentialForm(const std::string& target) const {
     return new PresidentialPardonForm(target);
 }
 
-// Main functionality
 AForm* Intern::makeForm(const std::string& formName, const std::string& target) const {
     // Search for the form type
     for (int i = 0; i < 3; i++) {
@@ -46,8 +43,6 @@ AForm* Intern::makeForm(const std::string& formName, const std::string& target) 
             return (this->*(formTypes[i].creator))(target);
         }
     }
-    
-    // Form not found
     std::cout << "Error: Intern cannot create form '" << formName 
               << "' - unknown form type" << std::endl;
     return NULL;

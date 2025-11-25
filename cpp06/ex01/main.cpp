@@ -18,7 +18,6 @@ void printData(const Data& data) {
 int main() {
     std::cout << COLOR_YELLOW << "=== Serialization Testing ===" << COLOR_RESET << std::endl;
 
-    // Create a Data object
     std::cout << COLOR_YELLOW << "\n1. Creating Data object:" << COLOR_RESET << std::endl;
     Data originalData(42, "Test Object", 3.14159, true);
     Data* originalPtr = &originalData;
@@ -38,7 +37,6 @@ int main() {
     Data* deserializedPtr = Serializer::deserialize(serialized);
     std::cout << "Deserialized pointer address: " << deserializedPtr << std::endl;
 
-    // Verify the pointers are equal
     std::cout << COLOR_YELLOW << "\n4. Verification:" << COLOR_RESET << std::endl;
     if (originalPtr == deserializedPtr) {
         std::cout << COLOR_GREEN << "✓ SUCCESS: Pointers match!" << COLOR_RESET << std::endl;
@@ -47,12 +45,10 @@ int main() {
         return 1;
     }
 
-    // Verify the data is accessible through deserialized pointer
     std::cout << COLOR_YELLOW << "\n5. Data accessibility test:" << COLOR_RESET << std::endl;
     std::cout << "Data through deserialized pointer:" << std::endl;
     printData(*deserializedPtr);
 
-    // Verify data integrity
     if (deserializedPtr->id == originalData.id &&
         deserializedPtr->name == originalData.name &&
         deserializedPtr->value == originalData.value &&
@@ -63,7 +59,6 @@ int main() {
         return 1;
     }
 
-    // Test with different Data objects
     std::cout << COLOR_YELLOW << "\n6. Testing with multiple objects:" << COLOR_RESET << std::endl;
     Data data1(1, "First", 1.11, false);
     Data data2(2, "Second", 2.22, true);

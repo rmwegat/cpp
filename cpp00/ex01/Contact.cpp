@@ -6,7 +6,7 @@
 /*   By: rwegat <rwegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 14:50:26 by rwegat            #+#    #+#             */
-/*   Updated: 2025/03/25 12:12:13 by rwegat           ###   ########.fr       */
+/*   Updated: 2025/11/24 08:31:55 by rwegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ Contact::~Contact(void)
 
 }
 
-// Getters
 std::string Contact::getFirstName(void) const
 {
     return this->firstName;

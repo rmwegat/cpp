@@ -5,7 +5,6 @@
 #include <iterator>
 #include <stdexcept>
 
-// Function template that finds the first occurrence of an integer in a container
 template <typename T>
 typename T::iterator easyfind(T& container, int value) {
     typename T::iterator it = std::find(container.begin(), container.end(), value);
@@ -15,7 +14,6 @@ typename T::iterator easyfind(T& container, int value) {
     return it;
 }
 
-// Const version for const containers
 template <typename T>
 typename T::const_iterator easyfind(const T& container, int value) {
     typename T::const_iterator it = std::find(container.begin(), container.end(), value);

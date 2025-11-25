@@ -1,6 +1,5 @@
 #include "PresidentialPardonForm.hpp"
 
-// Orthodox Canonical Form
 PresidentialPardonForm::PresidentialPardonForm() 
     : AForm("Presidential Pardon", GRADE_TO_SIGN, GRADE_TO_EXECUTE), target("default") {
 }
@@ -24,7 +23,6 @@ PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPard
 PresidentialPardonForm::~PresidentialPardonForm() {
 }
 
-// Getter
 const std::string& PresidentialPardonForm::getTarget() const {
     return target;
 }

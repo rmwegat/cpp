@@ -1,8 +1,6 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
 
-// Exception implementations
-
 const char* AForm::GradeTooHighException::what() const noexcept {
     return "AForm grade is too high (minimum is 1)";
 }
@@ -15,7 +13,6 @@ const char* AForm::FormNotSignedException::what() const noexcept {
     return "Form is not signed";
 }
 
-// Private helper function
 void AForm::validateGrade(int grade) const {
     if (grade < HIGHEST_GRADE) {
         throw GradeTooHighException();
@@ -25,7 +22,6 @@ void AForm::validateGrade(int grade) const {
     }
 }
 
-// Orthodox Canonical Form
 
 AForm::AForm()
     : name("default"), is_signed(false), grade_to_sign(LOWEST_GRADE), grade_to_execute(LOWEST_GRADE) {}
@@ -49,8 +45,6 @@ AForm& AForm::operator=(const AForm& other) {
 
 AForm::~AForm() {}
 
-// Getters
-
 const std::string& AForm::getName() const {
     return name;
 }
@@ -67,7 +61,6 @@ int AForm::getGradeToExecute() const {
     return grade_to_execute;
 }
 
-// Member functions
 
 void AForm::beSigned(const Bureaucrat& bureaucrat) {
     if (bureaucrat.getGrade() > grade_to_sign) {
@@ -86,7 +79,6 @@ void AForm::execute(const Bureaucrat& executor) const {
     executeAction();
 }
 
-// Overload insertion operator
 std::ostream& operator<<(std::ostream& os, const AForm& form) {
     os << "AForm: " << form.getName()
        << ", signed: " << (form.isSigned() ? "yes" : "no")

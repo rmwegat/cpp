@@ -6,7 +6,6 @@ ScalarConverter::ScalarConverter(const ScalarConverter& other) { (void)other; }
 ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other) { (void)other; return *this; }
 ScalarConverter::~ScalarConverter() {}
 
-// Type detection methods
 bool ScalarConverter::isChar(const std::string& str) {
     return str.length() == 3 && str[0] == '\'' && str[2] == '\'';
 }
@@ -118,7 +117,6 @@ void ScalarConverter::handlePseudoLiteral(const std::string& str) {
     }
 }
 
-// Output helper methods
 void ScalarConverter::printChar(double value, bool impossible) {
     if (impossible || std::isnan(value) || std::isinf(value) || 
         value < 0 || value > 127) {
@@ -173,7 +171,6 @@ void ScalarConverter::printDouble(double value, bool isPseudo, const std::string
     }
 }
 
-// Main conversion method
 void ScalarConverter::convert(const std::string& str) {
     if (str.empty()) {
         std::cout << "Error: Empty string" << std::endl;
@@ -186,13 +183,13 @@ void ScalarConverter::convert(const std::string& str) {
         return;
     }
     
-    // Handle char literal
+    // Handle char
     if (isChar(str)) {
         convertFromChar(str[1]);
         return;
     }
     
-    // Handle int literal
+    // Handle int
     if (isInt(str)) {
         try {
             long long value = std::strtoll(str.c_str(), NULL, 10);
@@ -208,7 +205,7 @@ void ScalarConverter::convert(const std::string& str) {
         }
     }
     
-    // Handle float literal
+    // float
     if (isFloat(str)) {
         try {
             float value = std::strtof(str.c_str(), NULL);
@@ -220,7 +217,7 @@ void ScalarConverter::convert(const std::string& str) {
         }
     }
     
-    // Handle double literal
+    // double
     if (isDouble(str)) {
         try {
             double value = std::strtod(str.c_str(), NULL);

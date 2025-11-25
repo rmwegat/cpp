@@ -8,7 +8,6 @@ struct Data {
     double value;
     bool active;
     
-    // Constructor for easy initialization
     Data(int id, const std::string& name, double value, bool active)
         : id(id), name(name), value(value), active(active) {}
     

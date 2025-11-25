@@ -12,15 +12,13 @@ private:
     static const int GRADE_TO_EXECUTE = 45;
 
 public:
-    // Orthodox Canonical Form
     RobotomyRequestForm();
     RobotomyRequestForm(const std::string& target);
     RobotomyRequestForm(const RobotomyRequestForm& other);
     RobotomyRequestForm& operator=(const RobotomyRequestForm& other);
     virtual ~RobotomyRequestForm();
 
-    // Getter
-    const std::string& getTarget() const;
+        const std::string& getTarget() const;
 
     // Override the pure virtual function
     virtual void executeAction() const override;

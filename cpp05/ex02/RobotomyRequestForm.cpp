@@ -1,6 +1,5 @@
 #include "RobotomyRequestForm.hpp"
 
-// Orthodox Canonical Form
 RobotomyRequestForm::RobotomyRequestForm() 
     : AForm("Robotomy Request", GRADE_TO_SIGN, GRADE_TO_EXECUTE), target("default") {
 }
@@ -24,24 +23,20 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& o
 RobotomyRequestForm::~RobotomyRequestForm() {
 }
 
-// Getter
 const std::string& RobotomyRequestForm::getTarget() const {
     return target;
 }
 
 // Override the pure virtual function
 void RobotomyRequestForm::executeAction() const {
-    // Make drilling noises
     std::cout << "*** DRILLING NOISES *** BZZZZT! WHIRRRR! CLANK! ***" << std::endl;
     
-    // Initialize random seed based on current time
     static bool seeded = false;
     if (!seeded) {
         std::srand(std::time(NULL));
         seeded = true;
     }
     
-    // 50% chance of success
     if (std::rand() % 2) {
         std::cout << target << " has been robotomized successfully!" << std::endl;
     } else {

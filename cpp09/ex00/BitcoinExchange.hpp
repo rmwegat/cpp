@@ -20,28 +20,20 @@ private:
     void trimString(std::string& str) const;
     
 public:
-    // Constructor
     BitcoinExchange();
     
-    // Copy constructor
     BitcoinExchange(const BitcoinExchange& other);
     
-    // Assignment operator
     BitcoinExchange& operator=(const BitcoinExchange& other);
     
-    // Destructor
     ~BitcoinExchange();
     
-    // Load database from CSV file
     void loadDatabase(const std::string& filename);
     
-    // Process input file
     void processInput(const std::string& filename) const;
     
-    // Get exchange rate for a specific date
     float getExchangeRate(const std::string& date) const;
     
-    // Exception classes
     class DatabaseException : public std::exception {
     private:
         std::string _message;
