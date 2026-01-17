@@ -1,11 +1,11 @@
-NAME = convert
+NAME = whatever
 
 SRCS = main.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
 CC = c++
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -std=c++17
 RM = rm -f
 
 all: $(NAME)

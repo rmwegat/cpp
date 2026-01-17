@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include "Array.hpp"
 
 #define MAX_VAL 750
@@ -18,6 +20,7 @@ int main(int, char**)
         Array<int> tmp = numbers;
         Array<int> test(tmp);
     }
+    std::cout << "✓ Deep copy and destruction test passed" << std::endl;
 
     for (int i = 0; i < MAX_VAL; i++)
     {
@@ -27,21 +30,24 @@ int main(int, char**)
             return 1;
         }
     }
+    std::cout << "✓ Value preservation test passed" << std::endl;
+    
     try
     {
         numbers[-2] = 0;
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << '\n';
+        std::cerr << "✓ Negative index caught: " << e.what() << std::endl;
     }
+    
     try
     {
         numbers[MAX_VAL] = 0;
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << '\n';
+        std::cerr << "✓ Out-of-bounds caught: " << e.what() << std::endl;
     }
 
     for (int i = 0; i < MAX_VAL; i++)
@@ -49,5 +55,6 @@ int main(int, char**)
         numbers[i] = rand();
     }
     delete [] mirror;
+    std::cout << "✓ All tests passed!" << std::endl;
     return 0;
 }

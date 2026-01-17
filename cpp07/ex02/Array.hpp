@@ -30,7 +30,8 @@ public:
     Array& operator=(const Array& other) {
         if (this != &other) {
             delete[] _elements;
-            size = other._size;
+            
+            _size = other._size;
             if (_size > 0) {
                 _elements = new T[_size];
                 for (unsigned int i = 0; i < _size; i++) {
