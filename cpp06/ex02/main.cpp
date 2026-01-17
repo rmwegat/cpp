@@ -22,11 +22,11 @@ int main() {
         
         if (obj) {
             std::cout << "Identify by pointer: ";
-            identify(obj);
+            identify(obj);              // obj is already a pointer (Base*)
             std::cout << std::endl;
             
             std::cout << "Identify by reference: ";
-            identify(*obj);
+            identify(*obj);             // *obj dereferences to get a reference (Base&)
             std::cout << std::endl;
             
             delete obj;

@@ -9,7 +9,6 @@
 
 class ScalarConverter {
 private:
-    // Make the class non-instantiable
     ScalarConverter();
     ScalarConverter(const ScalarConverter& other);
     ScalarConverter& operator=(const ScalarConverter& other);

@@ -8,7 +8,6 @@
 #include <random>
 
 Base* generate(void) {
-    // Use modern C++ random number generation
     static std::random_device rd;
     static std::mt19937 gen(rd());
     static std::uniform_int_distribution<> dist(0, 2);
@@ -45,29 +44,28 @@ void identify(Base* p) {
 void identify(Base& p) {
     try {
         A& a = dynamic_cast<A&>(p);
-        (void)a; // Suppress unused variable warning
+        (void)a;
         std::cout << "A";
         return;
     } catch (const std::bad_cast&) {
-        // Not type A, continue
+        // continue
     }
     
     try {
         B& b = dynamic_cast<B&>(p);
-        (void)b; // Suppress unused variable warning
+        (void)b;
         std::cout << "B";
         return;
     } catch (const std::bad_cast&) {
-        // Not type B, continue
+        // continue
     }
     
     try {
         C& c = dynamic_cast<C&>(p);
-        (void)c; // Suppress unused variable warning
+        (void)c;
         std::cout << "C";
         return;
     } catch (const std::bad_cast&) {
-        // Not type C
         std::cout << "Unknown";
     }
 }
