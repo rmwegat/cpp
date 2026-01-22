@@ -35,7 +35,6 @@ int main() {
         assignedArray = assignedArray;  // Self-assignment test
         std::cout << "Assignment successful, size: " << assignedArray.size() << std::endl;
         
-        // Test 5: Exception handling
         std::cout << "\n5. Testing exception handling:" << std::endl;
         try {
             std::cout << intArray[10] << std::endl;
