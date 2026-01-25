@@ -1,53 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*    Ford-Johnson Merge-Insert Sort Algorithm Implementation                 */
-/*    Exercise 02 - CPP Module 09                                            */
-/*                                                                            */
-/*    Objective: Implement the Ford-Johnson algorithm to sort positive       */
-/*    integers using two different STL containers (vector and deque)         */
-/*    and compare their performance.                                         */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/29 16:26:14 by ldick             #+#    #+#             */
+/*   Updated: 2025/08/29 16:26:29 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-int main(int argc, char **argv) {
-    
-    // Input validation
-    if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " [positive integers]" << std::endl;
-        std::cerr << "Example: " << argv[0] << " 3 5 9 7 4" << std::endl;
-        return 1;
-    }
-    
-    try {
-        // Create PmergeMe instance and sort
-        PmergeMe sorter;
-        sorter.sort(argc, argv);
-        
-    } catch (const std::exception &e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return 1;
-    }
-    
-    return 0;
+int main(int argc, char **argv)
+{
+	std::string input;
+	PmergeMe merge;
+	for (int i = 1; i < argc; i++)
+	{
+		input.append(argv[i]);
+		input.append(" ");
+	}
+	int range = 0;
+	for (int i = 0; i < (int)input.size(); i++)
+		if (input[i] == ' ')
+			range++;
+	std::cout << "Before:	" << input << std::endl;
+	try
+	{
+		merge.sortlist(input);
+		merge.sortDeque(input);
+		merge.compare_sorts();
+		std::cout << "After:	";
+		merge.print_deque();
+		std::cout << "Time to process a range of	" << range << "	with std::list :	" << merge.getListTime() << " µs" << std::endl;
+		std::cout << "Time to process a range of	" << range << "	with std::deque :	" << merge.getDequeTime() << " µs" << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+		return 1;
+	}
+	int debug = 1;
+	if (debug == 1)
+	{
+		std::list<int>& list = merge.getList();
+		if (std::is_sorted(list.begin(), list.end()) == true)
+			std::cout << "PASS" << std::endl;
+		else
+			std::cout << "FAIL" << std::endl;
+	}
+	return (0);
 }
-
-/* 
- * Expected Output Format:
- * Before: 3 5 9 7 4
- * After:  3 4 5 7 9
- * Time to process a range of 5 elements with std::vector : 0.00031 us
- * Time to process a range of 5 elements with std::deque : 0.00014 us
- * 
- * Algorithm Overview (Ford-Johnson):
- * 1. Group elements into pairs
- * 2. Sort each pair (smaller first)  
- * 3. Recursively sort the larger elements
- * 4. Insert smaller elements using optimal insertion sequence
- * 
- * Key Benefits:
- * - Minimizes comparisons for small datasets
- * - Mathematically optimal for small inputs
- * - Good demonstration of STL container performance differences
- */
