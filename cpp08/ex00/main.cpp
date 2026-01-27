@@ -10,7 +10,6 @@ int main() {
     std::cout << "=== Testing easyfind function template ===" << std::endl;
     
     try {
-        // Test 1: std::vector
         std::cout << "\n1. Testing with std::vector:" << std::endl;
         std::vector<int> vec;
         vec.push_back(10);
@@ -25,21 +24,18 @@ int main() {
         }
         std::cout << std::endl;
         
-        // Find existing value
         std::vector<int>::iterator found = easyfind(vec, 30);
         std::cout << "Found value 30 at position: " << std::distance(vec.begin(), found) << std::endl;
         
-        // Find another existing value
         found = easyfind(vec, 10);
         std::cout << "Found value 10 at position: " << std::distance(vec.begin(), found) << std::endl;
         
-        // Test 2: std::list
         std::cout << "\n2. Testing with std::list:" << std::endl;
         std::list<int> lst;
         lst.push_back(100);
         lst.push_back(200);
         lst.push_back(300);
-        lst.push_back(200);  // Duplicate value
+        lst.push_back(200);
         lst.push_back(400);
         
         std::cout << "List contains: ";
@@ -48,17 +44,15 @@ int main() {
         }
         std::cout << std::endl;
         
-        // Find first occurrence of duplicate value
         std::list<int>::iterator lstFound = easyfind(lst, 200);
         std::cout << "Found first occurrence of 200 at position: " << std::distance(lst.begin(), lstFound) << std::endl;
         
-        // Test 3: std::deque
         std::cout << "\n3. Testing with std::deque:" << std::endl;
         std::deque<int> deq;
         deq.push_back(5);
         deq.push_back(15);
         deq.push_back(25);
-        deq.push_front(0);  // Add to front
+        deq.push_front(0);
         
         std::cout << "Deque contains: ";
         for (std::deque<int>::iterator it = deq.begin(); it != deq.end(); ++it) {
@@ -69,7 +63,6 @@ int main() {
         std::deque<int>::iterator deqFound = easyfind(deq, 15);
         std::cout << "Found value 15 at position: " << std::distance(deq.begin(), deqFound) << std::endl;
         
-        // Test 4: std::array (C++11)
         std::cout << "\n4. Testing with std::array:" << std::endl;
         std::array<int, 4> arr = {{7, 14, 21, 28}};
         
@@ -82,9 +75,8 @@ int main() {
         std::array<int, 4>::iterator arrFound = easyfind(arr, 21);
         std::cout << "Found value 21 at position: " << std::distance(arr.begin(), arrFound) << std::endl;
         
-        // Test 5: Const container
         std::cout << "\n5. Testing with const container:" << std::endl;
-        const std::vector<int> constVec(vec);  // Copy from previous vector
+        const std::vector<int> constVec(vec);
         std::cout << "Const vector contains: ";
         for (std::vector<int>::const_iterator it = constVec.begin(); it != constVec.end(); ++it) {
             std::cout << *it << " ";
@@ -94,7 +86,6 @@ int main() {
         std::vector<int>::const_iterator constFound = easyfind(constVec, 40);
         std::cout << "Found value 40 in const vector at position: " << std::distance(constVec.begin(), constFound) << std::endl;
         
-        // Test 6: Empty container
         std::cout << "\n6. Testing with empty container:" << std::endl;
         std::vector<int> emptyVec;
         std::cout << "Attempting to find value in empty vector..." << std::endl;
@@ -104,7 +95,6 @@ int main() {
             std::cout << "Exception caught: " << e.what() << std::endl;
         }
         
-        // Test 7: Value not found in non-empty container
         std::cout << "\n7. Testing value not found:" << std::endl;
         std::cout << "Attempting to find value 999 in vector..." << std::endl;
         try {
@@ -113,7 +103,6 @@ int main() {
             std::cout << "Exception caught: " << e.what() << std::endl;
         }
         
-        // Test 8: Single element container
         std::cout << "\n8. Testing single element container:" << std::endl;
         std::vector<int> singleVec;
         singleVec.push_back(42);

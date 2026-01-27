@@ -7,7 +7,6 @@
 template <typename T>
 class MutantStack : public std::stack<T> {
 public:
-    // Default constructor
     MutantStack() : std::stack<T>() {}
     
     MutantStack(const MutantStack& other) : std::stack<T>(other) {}
@@ -21,7 +20,6 @@ public:
     
     ~MutantStack() {}
     
-    // stack uses std::deque as container
     typedef typename std::stack<T>::container_type::iterator iterator;
     typedef typename std::stack<T>::container_type::const_iterator const_iterator;
     typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;

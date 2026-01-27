@@ -6,7 +6,7 @@ int main() {
     std::cout << "=== Span Class Tests ===" << std::endl;
     
     try {
-        // Test 1: Basic functionality (provided example)
+        // Test 1: From Subject
         std::cout << "\n1. Testing basic functionality:" << std::endl;
         Span sp = Span(5);
         sp.addNumber(6);
@@ -18,7 +18,6 @@ int main() {
         std::cout << "Shortest span: " << sp.shortestSpan() << " (expected: 2)" << std::endl;
         std::cout << "Longest span: " << sp.longestSpan() << " (expected: 14)" << std::endl;
         
-        // Test 2: Exception handling
         std::cout << "\n2. Testing exceptions:" << std::endl;
         try {
             Span fullSpan(2);
@@ -36,7 +35,6 @@ int main() {
             std::cout << "Empty span exception: " << e.what() << std::endl;
         }
         
-        // Test 3: Iterator range (addNumbers)
         std::cout << "\n3. Testing iterator range:" << std::endl;
         Span rangeSpan(10);
         std::vector<int> numbers;
@@ -48,7 +46,6 @@ int main() {
         std::cout << "Shortest span: " << rangeSpan.shortestSpan() << std::endl;
         std::cout << "Longest span: " << rangeSpan.longestSpan() << std::endl;
         
-        // Test 4: Large numbers (10,000+)
         std::cout << "\n4. Testing with 10,000 numbers:" << std::endl;
         const unsigned int LARGE_SIZE = 10000;
         Span largeSpan(LARGE_SIZE);

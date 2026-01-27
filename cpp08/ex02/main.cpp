@@ -27,14 +27,12 @@ int main()
         std::cout << *it << std::endl;
         ++it;
     }
-    
-    // Test that MutantStack can be copied to std::stack
-    std::stack<int> s(mstack);
+        std::stack<int> s(mstack);
     std::cout << "Copied to std::stack, size: " << s.size() << std::endl;
     
     std::cout << "\n=== Testing equivalent std::list ===" << std::endl;
     
-    // Equivalent test with std::list
+    // same but with with std::list
     std::list<int> mlist;
     mlist.push_back(5);
     mlist.push_back(17);
@@ -61,22 +59,22 @@ int main()
     
     // Test reverse iterators
     std::cout << "MutantStack reverse iteration:" << std::endl;
-    MutantStack<int>::reverse_iterator rit = mstack.rbegin();
-    MutantStack<int>::reverse_iterator rite = mstack.rend();
-    while (rit != rite)
+    MutantStack<int>::reverse_iterator rev_it = mstack.rbegin();
+    MutantStack<int>::reverse_iterator rev_it_end = mstack.rend();
+    while (rev_it != rev_it_end)
     {
-        std::cout << *rit << " ";
-        ++rit;
+        std::cout << *rev_it << " ";
+        ++rev_it;
     }
     std::cout << std::endl;
     
     // Test const iterators
     const MutantStack<int> const_mstack(mstack);
     std::cout << "Const MutantStack iteration:" << std::endl;
-    for (MutantStack<int>::const_iterator cit = const_mstack.begin(); 
-         cit != const_mstack.end(); ++cit)
+    for (MutantStack<int>::const_iterator const_it = const_mstack.begin(); 
+         const_it != const_mstack.end(); ++const_it)
     {
-        std::cout << *cit << " ";
+        std::cout << *const_it << " ";
     }
     std::cout << std::endl;
     

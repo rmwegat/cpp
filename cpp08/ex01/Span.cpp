@@ -3,7 +3,7 @@
 #include <climits>
 
 Span::Span(unsigned int N) : _maxSize(N), _numbers() {
-    _numbers.reserve(N);  // Reserve space for efficiency
+    _numbers.reserve(N);
 }
 
 Span::Span(const Span& other) : _maxSize(other._maxSize), _numbers(other._numbers) {
@@ -32,7 +32,6 @@ unsigned int Span::shortestSpan() const {
         throw NoSpanFoundException();
     }
     
-    // Create a sorted copy to find adjacent differences
     std::vector<int> sorted(_numbers);
     std::sort(sorted.begin(), sorted.end());
     
