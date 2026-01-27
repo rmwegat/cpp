@@ -26,17 +26,6 @@ public:
     ~RPN();
     
     double calculate(const std::string& expression);
-    
-    class RPNException : public std::exception {
-    private:
-        std::string _message;
-    public:
-        RPNException(const std::string& message) : _message(message) {}
-        virtual ~RPNException() throw() {}
-        virtual const char* what() const throw() {
-            return _message.c_str();
-        }
-    };
 };
 
 #endif

@@ -41,11 +41,11 @@ double RPN::performOperation(double a, double b, char op) const {
             return a * b;
         case '/':
             if (b == 0) {
-                throw RPNException("Division by zero");
+                throw std::runtime_error("Division by zero");
             }
             return a / b;
         default:
-            throw RPNException("Invalid operator");
+            throw std::runtime_error("Invalid operator");
     }
 }
 
@@ -56,7 +56,7 @@ void RPN::processToken(const std::string& token) {
     }
     else if (isOperator(token)) {
         if (_operands.size() < 2) {
-            throw RPNException("Insufficient operands for operation");
+            throw std::runtime_error("Insufficient operands for operation");
         }
         
         double b = _operands.top(); _operands.pop();
@@ -66,7 +66,7 @@ void RPN::processToken(const std::string& token) {
         _operands.push(result);
     }
     else {
-        throw RPNException("Invalid token: " + token);
+        throw std::runtime_error("Invalid token: " + token);
     }
 }
 
@@ -76,7 +76,7 @@ double RPN::calculate(const std::string& expression) {
     }
     
     if (expression.empty()) {
-        throw RPNException("Empty expression");
+        throw std::runtime_error("Empty expression");
     }
     
     std::istringstream iss(expression);
@@ -87,11 +87,11 @@ double RPN::calculate(const std::string& expression) {
     }
     
     if (_operands.empty()) {
-        throw RPNException("No result calculated");
+        throw std::runtime_error("No result calculated");
     }
     
     if (_operands.size() != 1) {
-        throw RPNException("Invalid expression: too many operands");
+        throw std::runtime_error("Invalid expression: too many operands");
     }
     
     return _operands.top();
