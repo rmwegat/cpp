@@ -9,14 +9,14 @@ PmergeMe::PmergeMe(PmergeMe const &copy)
 {
 	this->list_sort = copy.list_sort;
 	this->deque_sort = copy.deque_sort;
-	std::cout << "PmergeMe: copy Constructor called" << std::endl; //TODO
+	std::cout << "PmergeMe: copy Constructor called" << std::endl;
 }
 
 PmergeMe &PmergeMe::operator=(PmergeMe const &copy)
 {
 	this->list_sort = copy.list_sort;
 	this->deque_sort = copy.deque_sort;
-	std::cout << "PmergeMe: Assignment Constructor called" << std::endl; //TODO
+	std::cout << "PmergeMe: Assignment Constructor called" << std::endl;
 	return (*this);
 }
 
@@ -233,16 +233,12 @@ void PmergeMe::sortlist(std::string input)
 			std::list<int> loser_values;
 			std::list<int> winner_values;
 			
-			// Read loser sub-group (first 'half' elements of this order-group)
 			for (int i = 0; i < half && it != new_list.end(); ++i, ++it)
 				loser_values.push_back(*it);
 			
-			// Read winner sub-group (next 'half' elements)
 			for (int i = 0; i < half && it != new_list.end(); ++i, ++it)
 				winner_values.push_back(*it);
 			
-			// Insert winner values into main at correct sorted position using binary search
-			// The key for insertion is the last (largest) element of the winner group
 			if (winner_values.empty())
 				continue ;
 			int key = winner_values.back();
@@ -264,10 +260,9 @@ void PmergeMe::sortlist(std::string input)
 				pending.push_back(PendingNode(*l_it, *w_iter));
 			}
 		}
-		//insertion using Jacobsthal sequence (Ford-Johnson)
+		//insertion using Jacobsthal sequence 
 		int pend_size = (int)pending.size();
 		
-		// First, insert b1 using binary search
 		if (pend_size > 0)
 		{
 			std::list<PendingNode>::iterator first_pend = pending.begin();
@@ -285,37 +280,30 @@ void PmergeMe::sortlist(std::string input)
 			{
 				int high = (jacob_curr < pend_size) ? jacob_curr : pend_size;
 				for (int i = high; i > jacob_prev; --i)
-					insert_order.push_back(i); // 1-indexed, will subtract 1 when accessing
+					insert_order.push_back(i);
 				jacob_prev = jacob_curr;
 				jacob_curr = jacobsthal(k);
 				k++;
 			}
 		}
 		
-		// Mark which pending elements have been inserted (index 0 already done above)
 		std::list<bool> inserted;
 		for (int i = 0; i < pend_size; ++i)
-			inserted.push_back(i == 0); // index 0 is already inserted
+			inserted.push_back(i == 0); 
 		
 		// Insert pending elements in Jacobsthal order using full binary search
 		for (std::list<int>::iterator ord_it = insert_order.begin(); ord_it != insert_order.end(); ++ord_it)
 		{
-			int pend_idx = *ord_it; // 1-indexed
+			int pend_idx = *ord_it; 
 			if (pend_idx <= 0 || pend_idx >= pend_size)
 				continue;
-			
-			// Check if already inserted
 			std::list<bool>::iterator ins_it = inserted.begin();
 			std::advance(ins_it, pend_idx);
 			if (*ins_it)
 				continue;
 			*ins_it = true;
-			
-			// Find the pending node at index pend_idx
 			std::list<PendingNode>::iterator pend_it = pending.begin();
 			std::advance(pend_it, pend_idx);
-			
-			// Binary search across entire main chain
 			std::list<int>::iterator pos = std::upper_bound(main.begin(), main.end(), pend_it->value);
 			main.insert(pos, pend_it->value);
 		}
@@ -593,7 +581,7 @@ void PmergeMe::sortDeque(std::string input)
 		// Insert pending elements in Jacobsthal order using full binary search
 		for (std::deque<int>::iterator ord_it = insert_order.begin(); ord_it != insert_order.end(); ++ord_it)
 		{
-			int pend_idx = *ord_it; // 1-indexed
+			int pend_idx = *ord_it;
 			if (pend_idx <= 0 || pend_idx >= pend_size)
 				continue;
 			
@@ -613,7 +601,7 @@ void PmergeMe::sortDeque(std::string input)
 			main.insert(pos, pend_it->value);
 		}
 		
-		// Insert any remaining pending elements that weren't covered
+		// Insert remaining
 		std::deque<bool>::iterator ins_check = inserted.begin();
 		for (std::deque<dequePendingNode>::iterator pend_it = pending.begin(); pend_it != pending.end(); ++pend_it, ++ins_check)
 		{
@@ -624,7 +612,7 @@ void PmergeMe::sortDeque(std::string input)
 			}
 		}
 
-		// Insert non-participating elements using binary search as well
+		// Insert non-participating elements
 		for (std::deque<int>::iterator np_it = non_participaring.begin(); np_it != non_participaring.end(); ++np_it)
 		{
 			std::deque<int>::iterator pos = std::upper_bound(main.begin(), main.end(), *np_it);
@@ -633,7 +621,6 @@ void PmergeMe::sortDeque(std::string input)
 		
 		new_list.clear();
 		new_list.insert(new_list.end(), main.begin(), main.end());
-		// pending and non-participating elements are now in main
 		main.clear();
 		pending.clear();
 		non_participaring.clear();
