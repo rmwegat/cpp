@@ -7,23 +7,12 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     
-    try {
-        RPN calculator;
-        double result = calculator.calculate(argv[1]);
-        
-        // Display result as integer if it's a whole number
-        if (result == static_cast<int>(result)) {
-            std::cout << static_cast<int>(result) << std::endl;
-        } else {
-            std::cout << result << std::endl;
-        }
-        
-    } catch (const std::exception& e) {
-        std::cerr << "Error" << std::endl;
-        return 1;
-    } catch (const std::exception& e) {
-        std::cerr << "Error" << std::endl;
-        return 1;
+    RPN rpn;
+    double result = rpn.calculate(argv[1]);
+    if (result == static_cast<int>(result)) {
+        std::cout << static_cast<int>(result) << std::endl;
+    } else {
+        std::cout << result << std::endl;
     }
     
     return 0;

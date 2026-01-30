@@ -1,29 +1,21 @@
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe()
-{
-	std::cout << "PmergeMe: Default Constructor called" << std::endl;
-}
+PmergeMe::PmergeMe() {}
 
 PmergeMe::PmergeMe(PmergeMe const &copy)
 {
 	this->list_sort = copy.list_sort;
 	this->deque_sort = copy.deque_sort;
-	std::cout << "PmergeMe: copy Constructor called" << std::endl;
 }
 
 PmergeMe &PmergeMe::operator=(PmergeMe const &copy)
 {
 	this->list_sort = copy.list_sort;
 	this->deque_sort = copy.deque_sort;
-	std::cout << "PmergeMe: Assignment Constructor called" << std::endl;
 	return (*this);
 }
 
-PmergeMe::~PmergeMe()
-{
-	std::cout << "PmergeMe: Default Deconstructor called" << std::endl;
-}
+PmergeMe::~PmergeMe() {}
 
 static std::list<int>fill_list(std::string input)
 {
@@ -89,13 +81,10 @@ void PmergeMe::sortlist(std::string input)
 	while(order < max_order)
 	{
 		int pair = 0;
-		// if (order > (int)this->list_sort.size() / 2)
-		// 	break ;
 		stop = false;
 		first_pair = 0;
 		it = this->list_sort.begin();
 		next = it;
-		// next++;
 		std::list<int>::iterator swap_pair_one;
 		std::list<int>::iterator swap_pair_two;
 		for (int j = 1; j <= order && next != this->list_sort.end(); j++)
@@ -196,10 +185,9 @@ void PmergeMe::sortlist(std::string input)
 		}
 		order *= 2;
 	}
-	// Re-add the odd element that was removed at the start
+	// add odd element back
 	if (has_odd_element)
 		this->list_sort.push_back(last);
-	//insertion
 	std::list<int> main;
 	std::list<PendingNode> pending;
 	std::list<int> non_participaring;
@@ -260,9 +248,10 @@ void PmergeMe::sortlist(std::string input)
 				pending.push_back(PendingNode(*l_it, *w_iter));
 			}
 		}
-		//insertion using Jacobsthal sequence 
+		//insertion using Jacobsthal sequence
+		// J(n) = J(n-1) + 2 × J(n-2)
+		// 0, 1, 1, 3, 5, 11, 21, 43, 85, 171, 341, ...
 		int pend_size = (int)pending.size();
-		
 		if (pend_size > 0)
 		{
 			std::list<PendingNode>::iterator first_pend = pending.begin();
@@ -339,13 +328,28 @@ void PmergeMe::sortlist(std::string input)
 	this->list_duration = double(end - start) / CLOCKS_PER_SEC;
 }
 
+
+
+
+
+
+
+// 				***** This code is then the same but using deque *****
+
+
+
+
+
+
+
+
+
+
 void PmergeMe::sortDeque(std::string input)
 {
 	this->deque_sort = fill_deque(input);
 	clock_t start = clock();
 	std::deque<int>::iterator it = this->deque_sort.begin();
-	// print unsorted for debuging
-	// end printing
 	int first_pair = 0;
 	it = this->deque_sort.begin();
 	bool stop = false;
@@ -506,49 +510,40 @@ void PmergeMe::sortDeque(std::string input)
 			full_groups++;
 		}
 		
-		// Process pairs of half-groups
-		// Extract loser and winner sub-groups, insert winners into main using binary search
 		it = new_list.begin();
 		for (int g = 0; g < full_groups; g++)
 		{
 			std::deque<int> loser_values;
 			std::deque<int> winner_values;
 			
-			// Read loser sub-group (first 'half' elements of this order-group)
 			for (int i = 0; i < half && it != new_list.end(); ++i, ++it)
 				loser_values.push_back(*it);
 			
-			// Read winner sub-group (next 'half' elements)
 			for (int i = 0; i < half && it != new_list.end(); ++i, ++it)
 				winner_values.push_back(*it);
 			
-			// Insert winner values into main at correct sorted position using binary search
-			// The key for insertion is the last (largest) element of the winner group
+
 			if (winner_values.empty())
 				continue ;
 			int key = winner_values.back();
 			std::deque<int>::iterator insert_pos = std::upper_bound(main.begin(), main.end(), key);
 			size_t insert_idx = std::distance(main.begin(), insert_pos);
 			
-			// Insert all winner values at the position (use index since deque iterators are invalidated)
 			for (std::deque<int>::iterator wit = winner_values.begin(); wit != winner_values.end(); ++wit)
 			{
 				main.insert(main.begin() + insert_idx, *wit);
 				insert_idx++;
 			}
 			
-			// Create pending nodes pairing losers with winners (don't store iterators for deque)
 			std::deque<int>::iterator l_it = loser_values.begin();
 			std::deque<int>::iterator w_it = winner_values.begin();
 			for (; l_it != loser_values.end() && w_it != winner_values.end(); ++l_it, ++w_it)
 			{
-				pending.push_back(dequePendingNode(*l_it, main.end())); // partner iterator not used for deque
+				pending.push_back(dequePendingNode(*l_it, main.end()));
 			}
 		}
-		//insertion using Jacobsthal sequence (Ford-Johnson)
 		int pend_size = (int)pending.size();
 		
-		// First, insert b1 using binary search
 		if (pend_size > 0)
 		{
 			std::deque<dequePendingNode>::iterator first_pend = pending.begin();
@@ -566,42 +561,36 @@ void PmergeMe::sortDeque(std::string input)
 			{
 				int high = (jacob_curr < pend_size) ? jacob_curr : pend_size;
 				for (int i = high; i > jacob_prev; --i)
-					insert_order.push_back(i); // 1-indexed, will subtract 1 when accessing
+					insert_order.push_back(i);
 				jacob_prev = jacob_curr;
 				jacob_curr = jacobsthal(k);
 				k++;
 			}
 		}
-		
-		// Mark which pending elements have been inserted (index 0 already done above)
+
 		std::deque<bool> inserted;
 		for (int i = 0; i < pend_size; ++i)
-			inserted.push_back(i == 0); // index 0 is already inserted
-		
-		// Insert pending elements in Jacobsthal order using full binary search
+			inserted.push_back(i == 0);
+
 		for (std::deque<int>::iterator ord_it = insert_order.begin(); ord_it != insert_order.end(); ++ord_it)
 		{
 			int pend_idx = *ord_it;
 			if (pend_idx <= 0 || pend_idx >= pend_size)
 				continue;
 			
-			// Check if already inserted
 			std::deque<bool>::iterator ins_it = inserted.begin();
 			std::advance(ins_it, pend_idx);
 			if (*ins_it)
 				continue;
 			*ins_it = true;
 			
-			// Find the pending node at index pend_idx
 			std::deque<dequePendingNode>::iterator pend_it = pending.begin();
 			std::advance(pend_it, pend_idx);
 			
-			// Binary search across entire main chain
 			std::deque<int>::iterator pos = std::upper_bound(main.begin(), main.end(), pend_it->value);
 			main.insert(pos, pend_it->value);
 		}
 		
-		// Insert remaining
 		std::deque<bool>::iterator ins_check = inserted.begin();
 		for (std::deque<dequePendingNode>::iterator pend_it = pending.begin(); pend_it != pending.end(); ++pend_it, ++ins_check)
 		{
@@ -612,7 +601,6 @@ void PmergeMe::sortDeque(std::string input)
 			}
 		}
 
-		// Insert non-participating elements
 		for (std::deque<int>::iterator np_it = non_participaring.begin(); np_it != non_participaring.end(); ++np_it)
 		{
 			std::deque<int>::iterator pos = std::upper_bound(main.begin(), main.end(), *np_it);
@@ -630,6 +618,18 @@ void PmergeMe::sortDeque(std::string input)
 	clock_t end = clock();
 	this->deque_duration = double(end - start) / CLOCKS_PER_SEC;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 void PmergeMe::print_list()
 {
