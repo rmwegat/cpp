@@ -1,29 +1,42 @@
-// How It Works (Simple Version)
-// Think of it like organizing a deck of cards in the most efficient way:
+#include "PmergeMe.hpp"
 
-// Step 1: Pair Up Elements
-// Take your unsorted list and pair up adjacent elements
-// Compare each pair and put the smaller one first
-// Example: [5, 2, 8, 1, 9, 3] becomes pairs [(2,5), (1,8), (3,9)]
-// Step 2: Sort the Winners
-// Take the larger element from each pair (the "winners": 5, 8, 9)
-// Sort these winners recursively using the same algorithm
-// This gives you: [5, 8, 9]
-// Step 3: Insert the Losers Strategically
-// Now you have the "losers" to insert: [2, 1, 3]
-// Insert them one by one using binary search to find the best position
-// The key insight: you already know some relationships, so you don't need to compare everything
-// Real-World Analogy
-// Imagine you're a teacher organizing students by height:
-
-// Pair students: Have them stand in pairs, shorter in front
-// Sort the tall ones: Line up all the taller students from shortest to tallest
-// Smart insertion: Now insert each shorter student, 
-// but you already know they're shorter than their original partner, so you don't need to check everyone
-
-// Why It's "Optimal"
-// For small lists (up to about 20-30 elements), Ford-Johnson uses the theoretical minimum number of comparisons.
-// It's mathematically proven to be optimal for small inputs.
-
-// ✅ Pros: Minimum comparisons, optimal for small lists
-// ❌ Cons: Complex to implement, slower overall due to overhead, not great for large lists
+int main(int argc, char **argv)
+{
+	std::string input;
+	PmergeMe merge;
+	for (int i = 1; i < argc; i++)
+	{
+		input.append(argv[i]);
+		input.append(" ");
+	}
+	int range = 0;
+	for (int i = 0; i < (int)input.size(); i++)
+		if (input[i] == ' ')
+			range++;
+	std::cout << "Before:	" << input << std::endl;
+	try
+	{
+		merge.sortlist(input);
+		merge.sortDeque(input);
+		merge.compare_sorts();
+		std::cout << "After:	";
+		merge.print_deque();
+		std::cout << "Time to process a range of	" << range << "	with std::list :	" << merge.getListTime() << " µs" << std::endl;
+		std::cout << "Time to process a range of	" << range << "	with std::deque :	" << merge.getDequeTime() << " µs" << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+		return 1;
+	}
+	int debug = 1;
+	if (debug == 1)
+	{
+		std::list<int>& list = merge.getList();
+		if (std::is_sorted(list.begin(), list.end()) == true)
+			std::cout << "PASS" << std::endl;
+		else
+			std::cout << "FAIL" << std::endl;
+	}
+	return (0);
+}

@@ -5,7 +5,6 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-#include <stdexcept>
 
 class RPN {
 private:
