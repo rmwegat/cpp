@@ -1,4 +1,6 @@
 #include "PmergeMe.hpp"
+#include <cerrno>
+#include <climits>
 
 // *************** Orhodox Canonical Form ***************
 
@@ -7,6 +9,8 @@ PmergeMe::PmergeMe()
 	this->_order = 1;
 	this->_last = 0;
 	this->_has_odd_element = false;
+	this->_list_swap_count = 0;
+	this->_deque_swap_count = 0;
 }
 
 PmergeMe::PmergeMe(PmergeMe const &copy)
@@ -16,6 +20,8 @@ PmergeMe::PmergeMe(PmergeMe const &copy)
 	this->_order = copy._order;
 	this->_last = copy._last;
 	this->_has_odd_element = copy._has_odd_element;
+	this->_list_swap_count = copy._list_swap_count;
+	this->_deque_swap_count = copy._deque_swap_count;
 	this->_main_chain_list = copy._main_chain_list;
 	this->_pending_list = copy._pending_list;
 	this->_non_participating_list = copy._non_participating_list;
@@ -29,6 +35,8 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &copy)
 	this->_order = copy._order;
 	this->_last = copy._last;
 	this->_has_odd_element = copy._has_odd_element;
+	this->_list_swap_count = copy._list_swap_count;
+	this->_deque_swap_count = copy._deque_swap_count;
 	this->_main_chain_list = copy._main_chain_list;
 	this->_pending_list = copy._pending_list;
 	this->_non_participating_list = copy._non_participating_list;
@@ -44,26 +52,45 @@ PmergeMe::~PmergeMe() {}
 static std::list<int>fill_list(std::string input)
 {
 	std::list<int> list;
-	if (input.find_first_not_of("0123456789 ") != std::string::npos){
+	char			*end;
+	long			value;
+	std::stringstream	ss(input);
+	std::string		token;
+	while (std::getline(ss, token, ' '))
+	{
+		if (token.empty())
+			continue ;
+		errno = 0;
+		value = std::strtol(token.c_str(), &end, 10);
+		if (errno != 0 || *end != '\0' || value < INT_MIN || value > INT_MAX)
+			throw std::runtime_error("Error: invalid input");
+		list.push_back(static_cast<int>(value));
+	}
+	if (list.empty())
 		throw std::runtime_error("Error: invalid input");
-		return list;}
-	std::stringstream ss(input);
-	std::string token;
-	while(std::getline(ss, token, ' '))
-		list.push_back(std::atoi(token.c_str()));
 	return list;
 }
 
 static std::deque<int>fill_deque(std::string input)
 {
 	std::deque<int> list;
-	if (input.find_first_not_of("0123456789 ") != std::string::npos){
+	char			*end;
+	long			value;
+	std::stringstream	ss(input);
+	std::string		token;
+
+	while (std::getline(ss, token, ' '))
+	{
+		if (token.empty())
+			continue ;
+		errno = 0;
+		value = std::strtol(token.c_str(), &end, 10);
+		if (errno != 0 || *end != '\0' || value < INT_MIN || value > INT_MAX)
+			throw std::runtime_error("Error: invalid input");
+		list.push_back(static_cast<int>(value));
+	}
+	if (list.empty())
 		throw std::runtime_error("Error: invalid input");
-		return list;}
-	std::stringstream ss(input);
-	std::string token;
-	while(std::getline(ss, token, ' '))
-		list.push_back(std::atoi(token.c_str()));
 	return list;
 }
 
@@ -106,7 +133,7 @@ void PmergeMe::sortListPairs()
 	{
 		// Initialize for this iteration of sorting
 		// pair_size is stored in this->_order
-		int pair = 0;
+		// int pair = 0;
 		stop = false;
 		first_pair = 0;
 		it = this->list_sort.begin();
@@ -135,6 +162,7 @@ void PmergeMe::sortListPairs()
 					int temp = *it;
 					*it = *next;
 					*next = temp;
+					this->_list_swap_count++;
 				}
 				it++;
 				next++;
@@ -142,13 +170,13 @@ void PmergeMe::sortListPairs()
 					break ;
 				it++;
 				next++;
-				pair++;
+				
 			}
 			// pair_size > 1 (comparing blocks of elements)
 			else
 			{
 				int i = 1;
-				pair++;
+				
 				swap_pair_one = this->list_sort.begin();
 				swap_pair_two = this->list_sort.begin();
 				
@@ -205,6 +233,7 @@ void PmergeMe::sortListPairs()
 						if (swap_pair_two == this->list_sort.end())
 							stop = true;
 					}
+					this->_list_swap_count++;
 					
 					// Advance iterators to next pair of blocks
 					if (first_pair == 1)	
@@ -359,6 +388,7 @@ void PmergeMe::sortlist(std::string input)
 	this->_order = 1;
 	this->_last = 0;
 	this->_has_odd_element = false;
+	this->_list_swap_count = 0;
 	sortListPairs();
 	if (this->_has_odd_element)
 		this->list_sort.push_back(this->_last);
@@ -408,7 +438,7 @@ void PmergeMe::sortDequePairs()
 	}
 	while(this->_order < max_order)
 	{
-		int pair = 0;
+		// int pair = 0;
 		stop = false;
 		first_pair = 0;
 		it = this->deque_sort.begin();
@@ -430,6 +460,7 @@ void PmergeMe::sortDequePairs()
 					int temp = *it;
 					*it = *next;
 					*next = temp;
+					this->_deque_swap_count++;
 				}
 				it++;
 				next++;
@@ -437,12 +468,12 @@ void PmergeMe::sortDequePairs()
 					break ;
 				it++;
 				next++;
-				pair++;
+				
 			}
 			else
 			{
 				int i = 1;
-				pair++;
+				
 				swap_pair_one = this->deque_sort.begin();
 				swap_pair_two = this->deque_sort.begin();
 				if (first_pair == 0)
@@ -489,6 +520,7 @@ void PmergeMe::sortDequePairs()
 						if (swap_pair_two == this->deque_sort.end())
 							stop = true;
 					}
+					this->_deque_swap_count++;
 					if (first_pair == 1)	
 					for (int i = 1; i < this->_order; i++){
 						swap_pair_two++;
@@ -621,6 +653,7 @@ void PmergeMe::sortDeque(std::string input)
 	this->_order = 1;
 	this->_last = 0;
 	this->_has_odd_element = false;
+	this->_deque_swap_count = 0;
 	sortDequePairs();
 	if (this->_has_odd_element)
 		this->deque_sort.push_back(this->_last);
@@ -679,6 +712,17 @@ double	PmergeMe::getDequeTime()
 {
 	return (this->deque_duration);
 }
+
+unsigned int PmergeMe::getListSwapCount() const
+{
+	return (this->_list_swap_count);
+}
+
+unsigned int PmergeMe::getDequeSwapCount() const
+{
+	return (this->_deque_swap_count);
+}
+
 std::list<int>& PmergeMe::getList()
 {
 	return (this->list_sort);

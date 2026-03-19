@@ -22,8 +22,8 @@ int main(int argc, char **argv)
 		std::cout << "After:	";
 		merge.print_deque();
 		std::cout << "Time to process a range of	" << range << "	with std::list :	" << merge.getListTime() << " µs" << std::endl;
-		std::cout << "Time to process a range of	" << range << "	with std::deque :	" << merge.getDequeTime() << " µs" << std::endl;
-	}
+		std::cout << "Time to process a range of	" << range << "	with std::deque :	" << merge.getDequeTime() << " µs" << std::endl;		std::cout << "Swaps with std::list : " << merge.getListSwapCount() << std::endl;
+		std::cout << "Swaps with std::deque : " << merge.getDequeSwapCount() << std::endl;	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';

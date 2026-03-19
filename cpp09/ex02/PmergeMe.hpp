@@ -40,6 +40,8 @@ class PmergeMe
 		void compare_sorts();
 		double	getListTime();
 		double	getDequeTime();
+		unsigned int getListSwapCount() const;
+		unsigned int getDequeSwapCount() const;
 		std::list<int>& getList();
 		std::deque<int>& getDeque();
 	private:
@@ -55,6 +57,8 @@ class PmergeMe
 		std::deque<int> deque_sort;
 		double		list_duration;
 		double		deque_duration;
+		unsigned int _list_swap_count;
+		unsigned int _deque_swap_count;
 		int			_order;
 		int			_last;
 		bool		_has_odd_element;
